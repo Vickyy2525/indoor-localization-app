@@ -22,7 +22,7 @@
 - Added loca.py for modeling calculations based on uploaded CSV.
 
 2025-09-04
-Python inference: each CSV upload produces a predicted position; multiple predictions aggregated by majority vote.
+- Python inference: each CSV upload produces a predicted position; multiple predictions aggregated by majority vote.
 
 2025-09-05 (Contribute: @0yufeng)
 - Fixed loca.py; tested successfully.
