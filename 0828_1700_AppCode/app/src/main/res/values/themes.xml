@@ -1,0 +1,9 @@
+<resources>
+    <!-- Base application theme -->
+    <style name="Theme.AppCode" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">#1A237E</item> <!-- 深藍色 -->
+        <item name="colorPrimaryDark">#121858</item>
+        <item name="colorAccent">#FF4081</item>
+        <item name="android:windowBackground">@android:color/white</item>
+    </style>
+</resources>

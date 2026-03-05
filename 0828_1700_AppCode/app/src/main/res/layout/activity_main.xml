@@ -1,0 +1,182 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context=".MainActivity">
+
+    <!-- Title bar at the top -->
+    <LinearLayout
+        android:id="@+id/titleBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#1A387E"
+        android:padding="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="南紡購物中心 3F"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/developerModeSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="開發者模式"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            app:thumbTint="@android:color/white"
+            app:trackTint="@color/material_dynamic_neutral50" />
+    </LinearLayout>
+
+    <!-- Map container -->
+    <FrameLayout
+        android:id="@+id/mapContainer"
+        android:layout_width="406dp"
+        android:layout_height="332dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleBar">
+
+        <com.github.chrisbanes.photoview.PhotoView
+            android:id="@+id/mapImageView"
+            android:layout_width="match_parent"
+            android:layout_height="316dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/map" />
+
+        <com.example.appcode.PositionMarkerView
+            android:id="@+id/positionMarkerView"
+            android:layout_width="match_parent"
+            android:layout_height="328dp"
+            android:background="@android:color/transparent" />
+    </FrameLayout>
+
+    <!-- Chat scroll view -->
+
+    <!-- Suggestion chips -->
+
+    <ScrollView
+        android:id="@+id/chatScrollView"
+        android:layout_width="409dp"
+        android:layout_height="217dp"
+        android:background="@android:color/white"
+        android:clipToPadding="false"
+        android:padding="16dp"
+        app:layout_constraintTop_toBottomOf="@id/mapContainer"
+        app:layout_constraintBottom_toTopOf="@id/suggestionLayout"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" >
+
+        <LinearLayout
+            android:id="@+id/dialogContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/suggestionLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        app:layout_constraintBottom_toTopOf="@id/inputLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/suggestionChip1"
+            style="@style/Widget.MaterialComponents.Chip.Action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="廁所要往哪裡走？"
+            app:chipBackgroundColor="@color/material_dynamic_neutral90"
+            app:chipCornerRadius="16dp"
+            app:chipStrokeColor="@color/material_dynamic_primary90"
+            app:chipStrokeWidth="1dp" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/suggestionChip2"
+            style="@style/Widget.MaterialComponents.Chip.Action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="附近有什麼？"
+            app:chipBackgroundColor="@color/material_dynamic_neutral90"
+            app:chipCornerRadius="16dp"
+            app:chipStrokeColor="@color/material_dynamic_primary90"
+            app:chipStrokeWidth="1dp" />
+    </LinearLayout>
+
+    <!-- Bottom input layout -->
+    <LinearLayout
+        android:id="@+id/inputLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:elevation="8dp"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <EditText
+            android:id="@+id/inputEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="輸入訊息..."
+            android:imeOptions="actionSend"
+            android:padding="12dp"
+            android:background="@drawable/edit_text_background" />
+
+        <Button
+            android:id="@+id/sendButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="傳送"
+            android:backgroundTint="#1A387E"
+            android:textColor="@android:color/white"
+            android:padding="12dp"
+            android:layout_marginStart="8dp" />
+    </LinearLayout>
+
+    <!-- Developer log area (hidden) -->
+    <ScrollView
+        android:id="@+id/developerLogScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#FFEBEE"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/mapContainer"
+        app:layout_constraintBottom_toTopOf="@id/inputLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:id="@+id/dataCollectorInner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp" />
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
