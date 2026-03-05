@@ -1,67 +1,45 @@
-# Indoor Localization App
+2025-08-30 (Contribute: @0yufeng)
+- Refactored Android permission handling: split checkAndRequestPermissions into checkPermissions() and requestPermissions().
+- Currently only checks ACCESS_FINE_LOCATION; storage permissions ignored to avoid errors.
+- Enables RSSI and light intensity signal collection on actual devices.
 
-Light & WiFi indoor positioning system with Python backend for coordinate estimation and GPT-powered location-aware question answering.
+2025-09-01
+- Added train function to generate model weights.
+- Added transform_inference to process CSV raw data from mobile and obtain predictions.
+- Training/testing on original data succeeded with expected accuracy.
+- Considered varying Wi-Fi APs in training/testing; not yet tested on different APs.
 
-This project is an indoor localization system combining an Android app and a Python inference server.  
-It measures Wi-Fi and light signal strengths, collects data via the Android app, exports it to CSV, and predicts positions using Python. Additional AI features provide responses based on the detected location.
+2025-09-03
+- Added datacollector Android module from previous 0830 app.
+- Converted buttons in original app into callable functions for integration.
+- Integrated datacollector into main app with automatic scan & CSV export loop.
+- Added UI section for displaying datacollector status.
+- Known issues: scan loop conflicts with original 3-second scan interval; CSV export overwrites old data; floor/coordinate buttons not yet understood; GPT API integration untested; CSV upload to PC for inference not implemented.
 
-## Features
+2025-09-04 (Contribute: @0yufeng)
+- Updated CSV handling in DataCollector.java to overwrite file continuously, keeping only latest timestamp.
+- Added CSV path handling, upload service, and minor Retrofit client adjustments.
+- Added loca.py for modeling calculations based on uploaded CSV.
 
-- Android App
-  - Measures Wi-Fi RSSI and ambient light intensity
-  - Data collection using `datacollector` module
-  - CSV export (overwrites previous file to keep latest record)
-  - Flat map display with current position
-  - Developer Mode toggle to hide internal status
-  - Quick questions: "Where is the restroom?" and "What is nearby?"
-  
-- Python Server
-  - Receives CSV uploads from the app
-  - Performs inference to determine current location
-  - Aggregates multiple timestamps using majority vote
-  - AI response feature based on user input and location
+2025-09-04
+Python inference: each CSV upload produces a predicted position; multiple predictions aggregated by majority vote.
 
-## Installation
+2025-09-05 (Contribute: @0yufeng)
+- Fixed loca.py; tested successfully.
+- Added README with usage instructions: measuring Wi-Fi/light signals, CSV export, CSV upload, AI response.
+- Pending improvements: UI, CSV path initialization, AI API token setup.
+- Incomplete: sending data to AI for current position; hosting Python server on non-local IP.
 
-### Android App
-1. Open the project in **Android Studio**
-2. Ensure necessary permissions are granted:
-   - `ACCESS_FINE_LOCATION`
-   - Ignore storage permissions for now (`WRITE_EXTERNAL_STORAGE`, `READ_EXTERNAL_STORAGE`) to avoid errors
-3. Build and run the app on a real device (emulator may not produce scan results)
+2025-09-06 (Contribute: @0yufeng)
+- Added uploadedPosition variable to store coordinates from signals.
+- Integrated coordinates with chinese_api.py.
+- Removed unused AIService.kt.
 
-### Python Server
-1. Navigate to the server directory
-2. Install required dependencies:
-```bash
-pip install -r requirements.txt
-```
-3. Run the server:
-```bash
-python -m uvicorn server:app --host 0.0.0.0 --port 8000
-```
-4.Ensure the app is connected to the correct IP address and port
+2025-09-06
+- Added map view: zoom, pan, display current position, updates on each CSV upload.
+- Added developer mode toggle to hide datacollector info.
+- Added two quick question shortcuts: “Where is the restroom?” and “What is nearby?”
 
-### Usage
-1. Launch the Android app
-2. The app will start scanning Wi-Fi and light signals automatically
-3. CSV files are continuously overwritten with the latest measurement
-4. Python server processes the CSV and returns predicted location
-5. Locations are updated on the app map in real time
-6. Use quick questions to get AI-based responses
-
-### Known Issues / Limitations
-- First CSV upload may fail if csvPath is null
-- Original scan logic may conflict if background scan intervals differ
-- GPT API token configuration required for AI responses
-- Hosting on network other than local IP is not fully tested
-- Floor definition and coordinate modification buttons functionality unclear
-
-Contributing
-- Contributor usernames are listed in the CHANGELOG
-- Please follow existing coding conventions and test features on real devices
-
-© 2026 NCKU MCSLab All rights reserved.
-This software is provided for research and educational purposes only. 
-Commercial use, redistribution, or modification without prior written permission is prohibited.
-
+2025-10-27 (Contribute: @0yufeng)
+- Merged two apps into one.
+- Improved continuous CSV update: single file overwritten, reducing memory usage.
